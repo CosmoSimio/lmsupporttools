@@ -1,0 +1,16 @@
+$ORIGIN lmsupporttools.com.
+$TTL 1800
+
+@       IN      SOA     ns1.lmsupporttools.com. admin.lmsupporttools.com. (
+                        2022030301 ; serial
+                        3600       ; refresh
+                        1800       ; retry
+                        604800     ; expire
+                        1800       ; default_ttl
+                        )
+
+@       IN      NS      ns1.lmsupporttools.com.
+@       IN      NS      ns2.lmsupporttools.com.
+
+@       IN      A       192.0.2.1
+www     IN      A       192.0.2.1

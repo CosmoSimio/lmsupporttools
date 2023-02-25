@@ -1,0 +1,24 @@
+FROM nginx:latest
+
+# Install curl for downloading the SSL/TLS certificates and keys
+RUN apt-get update && apt-get install -y curl
+
+# Download SSL/TLS certificates and keys
+RUN mkdir -p /etc/nginx/ssl/
+RUN curl -o /etc/nginx/ssl/server.crt https://yourdomain.com/server.crt
+RUN curl -o /etc/nginx/ssl/server.key https://yourdomain.com/server.key
+
+# Copy website files
+COPY home.html /usr/share/nginx/html/
+COPY abcgcalculator.html /usr/share/nginx/html/
+COPY dynamicthresholdscalculator.html /usr/share/nginx/html/
+
+# Install and configure reverse proxy
+RUN apt-get install -y nginx
+RUN rm /etc/nginx/sites-enabled/default
+COPY nginx.conf /etc/nginx/
+COPY default.conf /etc/nginx/conf.d/
+
+EXPOSE 443
+
+CMD ["nginx", "-g", "daemon off;"]
