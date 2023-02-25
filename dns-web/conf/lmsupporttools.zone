@@ -1,0 +1,13 @@
+$TTL 3600
+@       IN      SOA     ns1.lmsupporttools.com. admin.lmsupporttools.com. (
+                        2022030101 ; serial
+                        3600       ; refresh
+                        1800       ; retry
+                        604800     ; expire
+                        3600       ; minimum ttl
+                )
+@               IN      NS      ns1.lmsupporttools.com.
+@               IN      A       192.168.1.100
+@               IN      MX      10      mail.lmsupporttools.com.
+www             IN      A       192.168.1.100
+mail            IN      A       192.168.1.100
