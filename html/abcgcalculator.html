@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ABCG Balancing Calculator</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+			}
+			iframe {
+				all: unset;
+				font-family: Arial, sans-serif;
+			}
+		</style>
+	</head>
+<body>
+	<form id="myForm">
+		<label for="target_collector_mem">Target Collector Mem (in GB):</label>
+		<input type="text" id="target_collector_mem" name="target_collector_mem" pattern="\d*" required><br><br>
+		<label for="med_collector_mem">Medium Collector Mem (always 2GB):</label>
+		<input type="text" id="med_collector_mem" name="med_collector_mem" placeholder="2" value="2" readonly><br><br>
+		<label for="instance_threshold">Instance Threshold:</label>
+		<input type="text" id="instance_threshold" name="instance_threshold" pattern="\d*" required><br><br>
+		<button type="button" onclick="calculateNumInstances()">Calculate</button><br><br>
+		<label for="num_instances">Number of Instances:</label>
+		<input type="text" id="num_instances" name="num_instances" readonly><br><br>
+		<button type="button" onclick="goBack()">Back to Home Page</button>
+	</form>
+	<script>
+		function calculateNumInstances() {
+			const target_collector_mem = Number(document.getElementById('target_collector_mem').value);
+			const med_collector_mem = Number(document.getElementById('med_collector_mem').value);
+			const instance_threshold = Number(document.getElementById('instance_threshold').value);
+
+			const num_instances = Math.sqrt(target_collector_mem/med_collector_mem) * instance_threshold;
+
+			document.getElementById('num_instances').value = num_instances;
+		}
+
+		function goBack() {
+			window.location.href = "/index.html";
+		}
+	</script>
+</body>
+</html>
