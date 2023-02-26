@@ -2,32 +2,17 @@ version: '3'
 
 services:
   dns-web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: dns-web
     volumes:
       - ./conf:/etc/bind
-      - ./html:/usr/share/nginx/html
     ports:
       - "53:53/tcp"
       - "53:53/udp"
     environment:
       - TZ=UTC
-      - VIRTUAL_HOST=lmsupporttools.com
-      - VIRTUAL_PORT=80
-    labels:
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.acme_challenge=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.ssl_dhparam=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.default_ciphers=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.default_protocols=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.hsts=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.hsts_max_age=2592000"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.hsts_include_subdomains=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.ssl_session_cache=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.ssl_session_tickets=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.ssl_session_timeout=5m"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.ssl_stapling=true"
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.ssl_stapling_verify=true"
     networks:
       - proxy
 
@@ -36,12 +21,14 @@ services:
     volumes:
       - ./html:/usr/share/nginx/html
     command: >
-      /bin/bash -c "wget https://lmsupporttools.s3.us-east-2.amazonaws.com/home.html &&
-                     wget https://lmsupporttools.s3.us-east-2.amazonaws.com/abcgcalculator.html &&
-                     wget https://lmsupporttools.s3.us-east-2.amazonaws.com/dynamicthresholdscalculator.html &&
-                     cp /home.html /usr/share/nginx/html/ &&
-                     cp /abcgcalculator.html /usr/share/nginx/html/ &&
-                     cp /dynamicthresholdscalculator.html /usr/share/nginx/html/"
+      /bin/bash -c "apt-get update &&
+                    apt-get install -y wget &&
+                    wget https://lmsupporttools.s3.us-east-2.amazonaws.com/home.html &&
+                    wget https://lmsupporttools.s3.us-east-2.amazonaws.com/abcgcalculator.html &&
+                    wget https://lmsupporttools.s3.us-east-2.amazonaws.com/dynamicthresholdscalculator.html &&
+                    cp /home.html /usr/share/nginx/html/ &&
+                    cp /abcgcalculator.html /usr/share/nginx/html/ &&
+                    cp /dynamicthresholdscalculator.html /usr/share/nginx/html/"
     networks:
       - proxy
 

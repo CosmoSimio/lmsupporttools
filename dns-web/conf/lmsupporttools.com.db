@@ -1,0 +1,34 @@
+$TTL 3h
+@       IN SOA  ns1.lmsupporttools.com. hostmaster.lmsupporttools.com. (
+                2023022501      ; serial
+                3h              ; refresh
+                15m             ; retry
+                1w              ; expire
+                3h              ; minimum
+                )
+;
+; name servers - NS records
+;
+        IN      NS      ns1.lmsupporttools.com.
+        IN      NS      ns2.lmsupporttools.com.
+
+;
+; name servers - A records
+;
+ns1.lmsupporttools.com.   IN      A       192.0.2.10
+ns2.lmsupporttools.com.   IN      A       192.0.2.11
+
+;
+; mail exchanger
+;
+lmsupporttools.com.      IN      MX      10      mail.lmsupporttools.com.
+
+;
+; mail exchanger - A record
+;
+mail.lmsupporttools.com. IN      A       192.0.2.12
+
+;
+; name - IPv4
+;
+www.lmsupporttools.com. IN      A       192.0.2.13

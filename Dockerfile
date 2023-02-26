@@ -6,6 +6,8 @@ RUN apt-get update && \
     apt-get install -y bind9 bind9utils bind9-doc dnsutils && \
     rm -rf /var/lib/apt/lists/*
 
+COPY ./dns-web/conf/named.conf /etc/bind/
+
 EXPOSE 53/tcp
 EXPOSE 53/udp
 
