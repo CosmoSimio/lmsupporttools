@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: dns-web
     volumes:
-      - ./conf:/etc/bind
+      - ./dns-web/conf:/etc/bind
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -20,15 +20,9 @@ services:
     image: nginx:latest
     volumes:
       - ./html:/usr/share/nginx/html
-    command: >
-      /bin/bash -c "apt-get update &&
-                    apt-get install -y wget &&
-                    wget https://lmsupporttools.s3.us-east-2.amazonaws.com/home.html &&
-                    wget https://lmsupporttools.s3.us-east-2.amazonaws.com/abcgcalculator.html &&
-                    wget https://lmsupporttools.s3.us-east-2.amazonaws.com/dynamicthresholdscalculator.html &&
-                    cp /home.html /usr/share/nginx/html/ &&
-                    cp /abcgcalculator.html /usr/share/nginx/html/ &&
-                    cp /dynamicthresholdscalculator.html /usr/share/nginx/html/"
+    ports:
+      - "80:80"
+    command: /bin/bash -c "apt-get update && apt-get install -y wget && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/index.html -O /usr/share/nginx/html/index.html && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/abcgcalculator.html -O /usr/share/nginx/html/abcgcalculator.html && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/dynamicthresholdscalculator.html -O /usr/share/nginx/html/dynamicthresholdscalculator.html && chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && nginx -g 'daemon off;'"
     networks:
       - proxy
 

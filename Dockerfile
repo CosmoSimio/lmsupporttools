@@ -7,8 +7,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY ./dns-web/conf/named.conf /etc/bind/
+RUN useradd -ms /bin/bash webuser
 
 EXPOSE 53/tcp
 EXPOSE 53/udp
 
+USER webuser
 CMD ["/usr/sbin/named", "-g"]
