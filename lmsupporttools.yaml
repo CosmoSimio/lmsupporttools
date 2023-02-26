@@ -25,7 +25,7 @@ services:
       - "80:80"
     environment:
       - VIRTUAL_HOST=lmsupporttools.com
-    command: /bin/bash -c "apt-get update && apt-get install -y wget && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/index.html -O /usr/share/nginx/html/index.html && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/abcgcalculator.html -O /usr/share/nginx/html/abcgcalculator.html && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/dynamicthresholdscalculator.html -O /usr/share/nginx/html/dynamicthresholdscalculator.html && chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && nginx -g 'daemon off;'"
+    command: /bin/bash -c "apt-get update && apt-get install -y wget && wget https://raw.githubusercontent.com/CosmoSimio/lmsupporttools/master/html/index.html -O /usr/share/nginx/html/index.html && wget https://raw.githubusercontent.com/CosmoSimio/lmsupporttools/master/html/abcgcalculator.html -O /usr/share/nginx/html/abcgcalculator.html && wget https://raw.githubusercontent.com/CosmoSimio/lmsupporttools/master/html/dynamicthresholdscalculator.html -O /usr/share/nginx/html/dynamicthresholdscalculator.html && chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && nginx -g 'daemon off;'"
     networks:
       - proxy
 
