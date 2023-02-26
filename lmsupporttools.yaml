@@ -18,14 +18,16 @@ services:
 
   downloader:
     image: nginx:latest
+    container_name: lmsupporttools
     volumes:
       - ./html:/usr/share/nginx/html
     ports:
       - "80:80"
+    environment:
+      - VIRTUAL_HOST=lmsupporttools.com
     command: /bin/bash -c "apt-get update && apt-get install -y wget && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/index.html -O /usr/share/nginx/html/index.html && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/abcgcalculator.html -O /usr/share/nginx/html/abcgcalculator.html && wget https://lmsupporttools.s3.us-east-2.amazonaws.com/dynamicthresholdscalculator.html -O /usr/share/nginx/html/dynamicthresholdscalculator.html && chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && nginx -g 'daemon off;'"
     networks:
       - proxy
 
 networks:
   proxy:
-    external: true
